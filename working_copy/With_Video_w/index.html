@@ -1,0 +1,97 @@
+<html>
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	 crossorigin="anonymous">
+	<script type="text/javascript" src="https://static.robotwebtools.org/roslibjs/current/roslib.min.js">
+	</script>
+	<script src="https://cdn.jsdelivr.net/npm/vue">
+	</script>
+	<script src="https://cdn.jsdelivr.net/npm/eventemitter2@5.0.1/lib/eventemitter2.min.js">
+    	</script>
+    	<script type="text/javascript" src="https://static.robotwebtools.org/mjpegcanvasjs/current/mjpegcanvas.min.js">
+    	</script>
+	<style>
+		.row {
+			float:left;
+			width:600px;
+			height:400px;
+		}
+		.col-md-11 {
+			float:right;
+			width:400px;
+			height:400px;
+		}
+	</style>
+</head>
+
+<body>
+    <div id="app" class="container">
+		<div class="jumbotron">
+			<h1>Mobile Payload Carrier!</h1>
+		</div>
+
+		<div class="row" style="max-height:200px;">
+			<div class="col-md-6">
+				<h3>Connection status</h3>
+
+				<p class="text-success" v-if="connected">Connected!</p>
+				<p class="text-danger" v-else>Not connected!</p>
+				<label>Websocket server address</label>
+                                <input type="text" v-model="ws_address" />
+       <br />
+                                <button @click="disconnect" class="btn btn-danger" v-if="connected">Disconnect!</button>
+				<button @click="connect" class="btn btn-success" v-else>Connect!</button>
+			</div>
+			<div class="col-md-6" style="max-height:200px; overflow:auto;">
+    			<h3>Log messages</h3>
+    			<div>
+        			<p v-for="log in logs">
+            				{{ log }}
+        			</p>
+   			 </div>
+		</div>
+	</div>
+	
+	 <hr>
+
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h5>Commands</h5>
+            </div>
+
+            <!-- 1st row -->
+            <div class="col-md-12 text-center">
+                <button @click="forward" class="btn btn-primary">Forward</button>
+                <br><br>
+            </div>
+
+            <!-- 2nd row -->
+            <div class="col-md-4 text-center">
+                <button @click="turnLeft" class="btn btn-primary">Left</button>
+            </div>
+            <div class="col-md-4 text-center">
+                <button @click="stop" class="btn btn-danger">Stop</button>
+                <br><br>
+            </div>
+            <div class="col-md-4 text-center">
+                <button @click="turnRight" class="btn btn-primary">Right</button>
+            </div>
+
+            <!-- 3rd row -->
+            <div class="col-md-12 text-center">
+                <button @click="backward" class="btn btn-primary">Backward</button>
+            </div>
+        </div>
+	<div class="col-md-11">
+		<h6 style="text-align:center;">Live Video Stream</h6>
+        	<div id="mjpeg"></div>
+    	</div>
+	</div>
+	<script type="text/javascript" src="main.js">
+	</script>
+</body>
+
+</html>
+
